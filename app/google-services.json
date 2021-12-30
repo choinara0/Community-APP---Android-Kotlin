@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "562978558875",
+    "project_id": "mysolelife-c2013",
+    "storage_bucket": "mysolelife-c2013.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:562978558875:android:4b7ee8cc6119dc3fd4873e",
+        "android_client_info": {
+          "package_name": "com.example.androidstudy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "562978558875-rr1q1la6s855do81l2vdil6bhp26k1b2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAY6n3dhbjU0jzkgkHWZO9R6_iXvIoiLbQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "562978558875-rr1q1la6s855do81l2vdil6bhp26k1b2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
