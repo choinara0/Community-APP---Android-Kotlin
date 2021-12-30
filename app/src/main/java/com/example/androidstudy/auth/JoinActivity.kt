@@ -63,8 +63,9 @@ class JoinActivity : AppCompatActivity() {
                 auth.createUserWithEmailAndPassword(email, password1).addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
                             Toast.makeText(this, "성공", Toast.LENGTH_LONG).show()
-
+                            //회원가입 성공 시 mainActivity로 이동, joinActivity 종료
                             val intent = Intent(this, MainActivity::class.java)
+                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
                             startActivity(intent)
 
                         } else {
