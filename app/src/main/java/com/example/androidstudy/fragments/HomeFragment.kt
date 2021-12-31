@@ -39,9 +39,22 @@ class HomeFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
 
+        binding.storeTap.setOnClickListener {
+            it.findNavController().navigate(R.id.action_homeFragment_to_storeFragment)
+        }
+
+        binding.bookmarkTap.setOnClickListener {
+            it.findNavController().navigate(R.id.action_homeFragment_to_bookmarkFragment)
+        }
+
+        binding.talkTap.setOnClickListener {
+            it.findNavController().navigate(R.id.action_homeFragment_to_talkFragment)
+        }
+
         binding.tipTap.setOnClickListener {
             it.findNavController().navigate(R.id.action_homeFragment_to_tipFragment)
         }
+
         return binding.root
     }
 
