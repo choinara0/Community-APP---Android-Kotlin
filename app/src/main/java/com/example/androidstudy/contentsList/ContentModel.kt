@@ -1,4 +1,6 @@
 package com.example.androidstudy.contentsList
 
-class ContentModel {
-}
+data class ContentModel(
+    var title : String  = "",
+    var imageUrl : String = ""
+)
