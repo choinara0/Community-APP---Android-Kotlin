@@ -26,7 +26,8 @@ class ContentListActivity : AppCompatActivity() {
         // Write a message to the database
         val database = Firebase.database
         val items = ArrayList<ContentModel>()
-        val rvAdapter = ContentRVAdapter(baseContext, items)
+        var itemKeyList = ArrayList<String>()
+        val rvAdapter = ContentRVAdapter(baseContext, items, itemKeyList)
 
         val category = intent.getStringExtra("category")
 
@@ -43,6 +44,7 @@ class ContentListActivity : AppCompatActivity() {
                 for (DataModel in dataSnapshot.children){
                     val item = DataModel.getValue(ContentModel::class.java)
                     items.add(item!!)
+                    itemKeyList.add(DataModel.key.toString())
                 }
 
                 rvAdapter.notifyDataSetChanged()
@@ -58,9 +60,7 @@ class ContentListActivity : AppCompatActivity() {
 
 
         val rv : RecyclerView = findViewById(R.id.rv)
-
         rv.adapter = rvAdapter
-
         rv.layoutManager = GridLayoutManager(this, 2)
 
 

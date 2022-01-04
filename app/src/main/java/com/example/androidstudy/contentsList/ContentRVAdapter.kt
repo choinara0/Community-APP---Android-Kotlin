@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidstudy.R
 
-class ContentRVAdapter(val context : Context, val items: ArrayList<ContentModel>) : RecyclerView.Adapter<ContentRVAdapter.Viewholder>() {
+class ContentRVAdapter(val context : Context, val items: ArrayList<ContentModel>, val KeyList : ArrayList<String>) : RecyclerView.Adapter<ContentRVAdapter.Viewholder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentRVAdapter.Viewholder {
@@ -47,6 +47,11 @@ class ContentRVAdapter(val context : Context, val items: ArrayList<ContentModel>
             Glide.with(context)
                 .load(item.imageUrl)
                 .into(imageViewArea)
+
+            val bookmarkArea = itemView.findViewById<ImageView>(R.id.bookmarkArea)
+            bookmarkArea.setOnClickListener {
+
+            }
 
         }
     }
