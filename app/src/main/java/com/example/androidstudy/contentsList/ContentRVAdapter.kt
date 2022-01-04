@@ -11,8 +11,14 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidstudy.R
+import com.example.androidstudy.utils.FBAuth
+import com.example.androidstudy.utils.FBRef
 
-class ContentRVAdapter(val context : Context, val items: ArrayList<ContentModel>, val KeyList : ArrayList<String>) : RecyclerView.Adapter<ContentRVAdapter.Viewholder>() {
+class ContentRVAdapter(val context : Context,
+                       val items: ArrayList<ContentModel>,
+                       val keyList : ArrayList<String>,
+                       val bookmarkIdList : MutableList<String>)
+    : RecyclerView.Adapter<ContentRVAdapter.Viewholder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentRVAdapter.Viewholder {
@@ -23,7 +29,7 @@ class ContentRVAdapter(val context : Context, val items: ArrayList<ContentModel>
     override fun onBindViewHolder(holder: ContentRVAdapter.Viewholder, position: Int) {
 
 
-        holder.bindItems(items[position])
+        holder.bindItems(items[position], keyList[position], bookmarkIdList[position])
     }
 
     override fun getItemCount(): Int {
@@ -32,7 +38,7 @@ class ContentRVAdapter(val context : Context, val items: ArrayList<ContentModel>
 
     inner class Viewholder(itemView : View) : RecyclerView.ViewHolder(itemView){
 
-        fun bindItems(item : ContentModel) {
+        fun bindItems(item : ContentModel, key : String, bookmark : String) {
 
             itemView.setOnClickListener{
                 val intent = Intent(context, ContentShowActivity::class.java)
@@ -49,8 +55,15 @@ class ContentRVAdapter(val context : Context, val items: ArrayList<ContentModel>
                 .into(imageViewArea)
 
             val bookmarkArea = itemView.findViewById<ImageView>(R.id.bookmarkArea)
-            bookmarkArea.setOnClickListener {
 
+            if(keyList.contains(bookmark)){
+                bookmarkArea.setImageResource(R.drawable.bookmark_color)
+            }else {
+                bookmarkArea.setImageResource(R.drawable.bookmark_white)
+            }
+
+            bookmarkArea.setOnClickListener {
+                FBRef.bookmarkRef.child(FBAuth.getUid()).child(key).setValue(BookmarkModel(true))
             }
 
         }

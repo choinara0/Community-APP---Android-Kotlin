@@ -9,6 +9,8 @@ import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidstudy.R
+import com.example.androidstudy.utils.FBAuth
+import com.example.androidstudy.utils.FBRef
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -19,6 +21,9 @@ import com.google.firebase.database.ktx.database
 class ContentListActivity : AppCompatActivity() {
 
     lateinit var myRef : DatabaseReference
+    lateinit var rvAdapter: ContentRVAdapter
+    val bookmarkIdList = mutableListOf<String>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_content_list)
@@ -27,7 +32,7 @@ class ContentListActivity : AppCompatActivity() {
         val database = Firebase.database
         val items = ArrayList<ContentModel>()
         var itemKeyList = ArrayList<String>()
-        val rvAdapter = ContentRVAdapter(baseContext, items, itemKeyList)
+        rvAdapter = ContentRVAdapter(baseContext, items, itemKeyList, bookmarkIdList)
 
         val category = intent.getStringExtra("category")
 
@@ -63,22 +68,25 @@ class ContentListActivity : AppCompatActivity() {
         rv.adapter = rvAdapter
         rv.layoutManager = GridLayoutManager(this, 2)
 
+        getBookmarkData()
 
     }
+    //bookmark data 가져오는 함수
+    private fun getBookmarkData(){
+        val postListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                for (DataModel in dataSnapshot.children){
+                    bookmarkIdList.add(DataModel.key.toString())
+                }
+                rvAdapter.notifyDataSetChanged()
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+
+                Log.w("ContentListActivity", "loadPost:onCancelled", databaseError.toException())
+            }
+        }
+        FBRef.bookmarkRef.child(FBAuth.getUid()).addValueEventListener(postListener)
+    }
 }
-
-
-//        myRef.push().setValue(
-//            ContentModel("title1","https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FblYPPY%2Fbtq66v0S4wu%2FRmuhpkXUO4FOcrlOmVG4G1%2Fimg.png", "https://philosopher-chan.tistory.com/1235?category=941578")
-//        )
-//
-//        myRef.push().setValue(
-//            ContentModel("title2","https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FznKK4%2Fbtq665AUWem%2FRUawPn5Wwb4cQ8BetEwN40%2Fimg.png", "https://philosopher-chan.tistory.com/1236?category=941578")
-//        )
-//
-//        myRef.push().setValue(
-//            ContentModel("title3","https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbtig9C%2Fbtq65UGxyWI%2FPRBIGUKJ4rjMkI7KTGrxtK%2Fimg.png", "https://philosopher-chan.tistory.com/1237?category=941578")
-//        )
-//        items.add(ContentModel("title1","https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FblYPPY%2Fbtq66v0S4wu%2FRmuhpkXUO4FOcrlOmVG4G1%2Fimg.png", "https://philosopher-chan.tistory.com/1235?category=941578"))
-//        items.add(ContentModel("title2","https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FznKK4%2Fbtq665AUWem%2FRUawPn5Wwb4cQ8BetEwN40%2Fimg.png", "https://philosopher-chan.tistory.com/1236?category=941578"))
-//        items.add(ContentModel("title3","https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbtig9C%2Fbtq65UGxyWI%2FPRBIGUKJ4rjMkI7KTGrxtK%2Fimg.png", "https://philosopher-chan.tistory.com/1237?category=941578"))
