@@ -1,4 +1,5 @@
 package com.example.androidstudy.contentsList
 
-class BookmarkModel {
-}
+data class BookmarkModel (
+    val bookmarkIsTrue : Boolean? = null
+    )
