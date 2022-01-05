@@ -63,9 +63,11 @@ class ContentRVAdapter(val context : Context,
             }
 
             bookmarkArea.setOnClickListener {
-
+                //bookmark가 있을 때 삭제
                 if(bookmarkIdList.contains(key)){
+                    bookmarkIdList.remove(key)
                     FBRef.bookmarkRef.child(FBAuth.getUid()).child(key).removeValue()
+                //bookmark가 없을 때 추가
                 } else{
                     FBRef.bookmarkRef.child(FBAuth.getUid()).child(key).setValue(BookmarkModel(true))
                 }
