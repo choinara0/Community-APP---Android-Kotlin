@@ -41,7 +41,7 @@
             android:text="time" />
 
         <TextView
-            android:id="@+id/textArea"
+            android:id="@+id/contentArea"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_margin="20dp"
