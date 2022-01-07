@@ -3,6 +3,7 @@ package com.example.androidstudy.board
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.androidstudy.R
 import com.example.androidstudy.databinding.ActivityBoardWriteBinding
@@ -35,6 +36,9 @@ class BoardWriteActivity : AppCompatActivity() {
                 .push()
                 .setValue(BoardModel(title, content, uid, time))
 
+            Toast.makeText(this, "게시글 입력 완료", Toast.LENGTH_LONG).show()
+
+            finish()
 
         }
 
