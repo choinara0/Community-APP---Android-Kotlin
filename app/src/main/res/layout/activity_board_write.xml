@@ -28,6 +28,7 @@
             android:background="#000000"/>
 
         <EditText
+            android:id="@+id/titleArea"
             android:layout_margin="20dp"
             android:layout_width="match_parent"
             android:background="@android:color/transparent"
@@ -42,6 +43,7 @@
             android:background="#000000"/>
 
         <EditText
+            android:id="@+id/contentArea"
             android:layout_margin="20dp"
             android:layout_width="match_parent"
             android:background="@android:color/transparent"
@@ -63,6 +65,7 @@
             android:layout_height="wrap_content"/>
 
         <Button
+            android:id="@+id/writeBtn"
             android:text="입력"
             android:layout_marginTop="50dp"
             android:layout_marginLeft="20dp"
