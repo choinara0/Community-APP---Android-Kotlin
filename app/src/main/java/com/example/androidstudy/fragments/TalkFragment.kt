@@ -97,7 +97,7 @@ class TalkFragment : Fragment() {
                     val item = dataModel.getValue(BoardModel::class.java)
                     boardDataList.add(item!!)
                 }
-
+                boardDataList.reverse()
                 boardRVAdapter.notifyDataSetChanged()
                 Log.d(TAG, boardDataList.toString())
             }
