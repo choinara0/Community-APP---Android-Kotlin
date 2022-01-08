@@ -24,7 +24,7 @@ class BoardWriteActivity : AppCompatActivity() {
 
     private val TAG = BoardWriteActivity::class.java.simpleName
 
-    private var isImageUpLoad = False
+    private var isImageUpLoad = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
