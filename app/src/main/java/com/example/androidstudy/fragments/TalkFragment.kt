@@ -28,6 +28,7 @@ class TalkFragment : Fragment() {
     private lateinit var binding : FragmentTalkBinding
 
     private val boardDataList = mutableListOf<BoardModel>()
+    private val boardKeyList = mutableListOf<String>()
 
     private lateinit var boardRVAdapter : BoardListLVAdapter
 
@@ -47,17 +48,24 @@ class TalkFragment : Fragment() {
         boardRVAdapter = BoardListLVAdapter(boardDataList)
         binding.boardListView.adapter = boardRVAdapter
 
-        //게시판에 있는 게시글 클릭시 어떻게 처리할 것인가?
-        // 첫번째 방법은 listview에 있는 title, content, time을 담아서 다른 액티비티로 넘겨주기
-        // 두번쨰 방법은 Firebase에 있는 board에 대한 데이터의 id를 기반으로 다시 데이터를 받아오기
-
         binding.boardListView.setOnItemClickListener { parent, view, position, id ->
+            //게시판에 있는 게시글 클릭시 어떻게 처리할 것인가?
+            // 첫번째 방법은 listview에 있는 title, content, time을 담아서 다른 액티비티로 넘겨주기
+            // 두번쨰 방법은 Firebase에 있는 board에 대한 데이터의 id를 기반으로 다시 데이터를 받아오기법
+
+            //첫번째 방법
+//            val intent = Intent(context, BoardInsideActivity::class.java)
+//            intent.putExtra("title", boardDataList[position].title)
+//            intent.putExtra("content", boardDataList[position].content)
+//            intent.putExtra("time", boardDataList[position].time)
+//            startActivity(intent)
+
+            //두번째 방법
             val intent = Intent(context, BoardInsideActivity::class.java)
-            intent.putExtra("title", boardDataList[position].title)
-            intent.putExtra("content", boardDataList[position].content)
-            intent.putExtra("time", boardDataList[position].time)
+            intent.putExtra("key", boardKeyList[position])
             startActivity(intent)
         }
+
 
         binding.writeBtn.setOnClickListener {
             val intent = Intent(context, BoardWriteActivity::class.java)
@@ -96,7 +104,9 @@ class TalkFragment : Fragment() {
 
                     val item = dataModel.getValue(BoardModel::class.java)
                     boardDataList.add(item!!)
+                    boardKeyList.add(dataModel.key.toString())
                 }
+                boardKeyList.reverse()
                 boardDataList.reverse()
                 boardRVAdapter.notifyDataSetChanged()
                 Log.d(TAG, boardDataList.toString())
