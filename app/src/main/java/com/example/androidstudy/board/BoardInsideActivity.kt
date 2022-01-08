@@ -33,7 +33,6 @@ class BoardInsideActivity : AppCompatActivity() {
 
         //두번째 방법
         val key = intent.getStringExtra("key")
-        Toast.makeText(this, key, Toast.LENGTH_LONG).show()
 
         getBoardData(key.toString())
 
