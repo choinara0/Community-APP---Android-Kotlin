@@ -36,8 +36,6 @@ class BoardWriteActivity : AppCompatActivity() {
             val uid = FBAuth.getUid()
             val time = Time.getTime()
 
-            // Firebase storage에 이미지를 저장하기 위해
-
             val key = FBRef.boardRef.push().key.toString()
 
             FBRef.boardRef
