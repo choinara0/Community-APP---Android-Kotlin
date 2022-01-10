@@ -1,5 +1,6 @@
 package com.example.androidstudy.board
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -62,7 +63,8 @@ class BoardInsideActivity : AppCompatActivity() {
 
         val alertDialog = mBuilder.show()
         alertDialog.findViewById<Button>(R.id.editBtn)?.setOnClickListener {
-
+            val intent = Intent(this, BoardEditActivity::class.java)
+            startActivity(intent)
         }
         alertDialog.findViewById<Button>(R.id.delBtn)?.setOnClickListener {
             FBRef.boardRef.child(key).removeValue()
