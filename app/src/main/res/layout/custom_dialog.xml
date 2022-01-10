@@ -6,7 +6,8 @@
     android:orientation="vertical">
 
     <Button
-        android:text="editBtn"
+        android:id="@+id/editBtn"
+        android:text="수정"
         android:background="@drawable/background_radius_yellow"
         android:layout_margin="20dp"
         android:layout_width="match_parent"
