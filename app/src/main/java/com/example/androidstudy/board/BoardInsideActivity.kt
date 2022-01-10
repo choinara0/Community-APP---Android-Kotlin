@@ -64,6 +64,7 @@ class BoardInsideActivity : AppCompatActivity() {
         val alertDialog = mBuilder.show()
         alertDialog.findViewById<Button>(R.id.editBtn)?.setOnClickListener {
             val intent = Intent(this, BoardEditActivity::class.java)
+            intent.putExtra("key", key)
             startActivity(intent)
         }
         alertDialog.findViewById<Button>(R.id.delBtn)?.setOnClickListener {
