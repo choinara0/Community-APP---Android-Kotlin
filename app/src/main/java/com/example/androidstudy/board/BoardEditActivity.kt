@@ -3,11 +3,14 @@ package com.example.androidstudy.board
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.example.androidstudy.R
 import com.example.androidstudy.databinding.ActivityBoardEditBinding
+import com.example.androidstudy.utils.FBAuth
 import com.example.androidstudy.utils.FBRef
+import com.example.androidstudy.utils.Time
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -21,7 +24,7 @@ class BoardEditActivity : AppCompatActivity() {
     private lateinit var key : String
     private lateinit var binding : ActivityBoardEditBinding
     private val TAG = BoardEditActivity::class.java.simpleName
-
+    private lateinit var writeUid : String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -31,21 +34,20 @@ class BoardEditActivity : AppCompatActivity() {
 
         getBoardData(key)
         getImageData(key)
+        binding.editBtn.setOnClickListener {
+            editBoardData(key)
+        }
+
     }
 
     private fun getBoardData(key: String) {
 
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-
-                try{
-                    val dataModel = dataSnapshot.getValue(BoardModel::class.java)
-                    binding.titleArea.setText(dataModel!!.title)
-                    binding.contentArea.setText(dataModel!!.content)
-
-                }catch (e : Exception){
-                    Log.d(TAG, "삭제완료 ")
-                }
+                val dataModel = dataSnapshot.getValue(BoardModel::class.java)
+                binding.titleArea.setText(dataModel!!.title)
+                binding.contentArea.setText(dataModel!!.content)
+                writeUid = dataModel!!.uid
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -70,5 +72,18 @@ class BoardEditActivity : AppCompatActivity() {
                     .load(task.result).into(imageViewFromFB)
             }
         })
+    }
+
+    private fun editBoardData(key : String){
+        FBRef.boardRef
+            .child(key)
+            .setValue(
+                BoardModel(binding.titleArea.text.toString(),
+                binding.contentArea.text.toString(),
+                    writeUid,
+                Time.getTime())
+            )
+        Toast.makeText(this, "수정완료", Toast.LENGTH_LONG).show()
+        finish()
     }
 }
