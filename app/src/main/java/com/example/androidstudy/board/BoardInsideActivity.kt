@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import java.lang.Exception
 
 class BoardInsideActivity : AppCompatActivity() {
 
@@ -66,6 +67,7 @@ class BoardInsideActivity : AppCompatActivity() {
         alertDialog.findViewById<Button>(R.id.delBtn)?.setOnClickListener {
             FBRef.boardRef.child(key).removeValue()
             Toast.makeText(this, "삭제 완료", Toast.LENGTH_LONG).show()
+            finish()
         }
     }
 
@@ -75,13 +77,16 @@ class BoardInsideActivity : AppCompatActivity() {
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
-                val dataModel = dataSnapshot.getValue(BoardModel::class.java)
+                try{
+                    val dataModel = dataSnapshot.getValue(BoardModel::class.java)
 
-                binding.titleArea.text = dataModel!!.title
-                binding.contentArea.text = dataModel!!.content
-                binding.timeArea.text = dataModel!!.time
+                    binding.titleArea.text = dataModel!!.title
+                    binding.contentArea.text = dataModel!!.content
+                    binding.timeArea.text = dataModel!!.time
 
-
+                }catch (e : Exception){
+                    Log.d(TAG, "삭제완료 ")
+                }
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
