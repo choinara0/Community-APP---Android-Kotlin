@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
@@ -24,6 +25,8 @@ class BoardInsideActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityBoardInsideBinding
 
+    private lateinit var  key : String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -42,11 +45,11 @@ class BoardInsideActivity : AppCompatActivity() {
 //        binding.timeArea.text = time
 
         //두번째 방법
-        val key = intent.getStringExtra("key")
+        key = intent.getStringExtra("key").toString()
 
-        getBoardData(key.toString())
+        getBoardData(key)
 
-        getImageData(key.toString())
+        getImageData(key)
 
 
     }
@@ -57,7 +60,15 @@ class BoardInsideActivity : AppCompatActivity() {
             .setView(mDialogView)
             .setTitle("게시글 수정/삭제")
 
-        mBuilder.show()
+        val alertDialog = mBuilder.show()
+        alertDialog.findViewById<Button>(R.id.editBtn)?.setOnClickListener {
+
+        }
+        alertDialog.findViewById<Button>(R.id.delBtn)?.setOnClickListener {
+            FBRef.boardRef.child(key).removeValue()
+            Toast.makeText(this, "삭제 완료", Toast.LENGTH_LONG).show()
+            finish()
+        }
     }
 
 
