@@ -3,7 +3,9 @@ package com.example.androidstudy.board
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.example.androidstudy.R
@@ -26,7 +28,11 @@ class BoardInsideActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_board_inside)
-//        첫번째 방
+
+        binding.boardSettingIcon.setOnClickListener {
+            showDialog()
+        }
+//        첫번째 방법
 //        val title = intent.getStringExtra("title").toString()
 //        val content = intent.getStringExtra("content").toString()
 //        val time = intent.getStringExtra("time").toString()
@@ -43,6 +49,15 @@ class BoardInsideActivity : AppCompatActivity() {
         getImageData(key.toString())
 
 
+    }
+
+    private fun showDialog(){
+        val mDialogView = LayoutInflater.from(this).inflate(R.layout.custom_dialog, null)
+        val mBuilder = AlertDialog.Builder(this)
+            .setView(mDialogView)
+            .setTitle("게시글 수정/삭제")
+
+        mBuilder.show()
     }
 
 
