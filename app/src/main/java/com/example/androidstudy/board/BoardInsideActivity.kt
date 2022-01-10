@@ -48,7 +48,6 @@ class BoardInsideActivity : AppCompatActivity() {
         key = intent.getStringExtra("key").toString()
 
         getBoardData(key)
-
         getImageData(key)
 
 
@@ -67,7 +66,6 @@ class BoardInsideActivity : AppCompatActivity() {
         alertDialog.findViewById<Button>(R.id.delBtn)?.setOnClickListener {
             FBRef.boardRef.child(key).removeValue()
             Toast.makeText(this, "삭제 완료", Toast.LENGTH_LONG).show()
-            finish()
         }
     }
 
