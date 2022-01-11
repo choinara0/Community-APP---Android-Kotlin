@@ -12,6 +12,7 @@ import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.example.androidstudy.R
+import com.example.androidstudy.comment.CommentModel
 import com.example.androidstudy.databinding.ActivityBoardInsideBinding
 import com.example.androidstudy.utils.FBAuth
 import com.example.androidstudy.utils.FBRef
@@ -54,6 +55,9 @@ class BoardInsideActivity : AppCompatActivity() {
         getBoardData(key)
         getImageData(key)
 
+        binding.commentBtn.setOnClickListener {
+            insertComment(key)
+        }
 
     }
 
@@ -126,5 +130,15 @@ class BoardInsideActivity : AppCompatActivity() {
                 binding.getImageArea.isVisible = false
             }
         })
+    }
+
+    private fun insertComment(key : String){
+        FBRef.commentRef
+            .child(key)
+            .push()
+            .setValue(CommentModel(binding.commentArea.text.toString()))
+
+        Toast.makeText(this, "댓글 입력 완료", Toast.LENGTH_SHORT).show()
+        binding.commentArea.setText("")
     }
 }
