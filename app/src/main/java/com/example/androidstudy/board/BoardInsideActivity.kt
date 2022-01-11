@@ -138,8 +138,9 @@ class BoardInsideActivity : AppCompatActivity() {
             .child(key)
             .push()
             .setValue(
-                CommentModel(binding.commentArea.text.toString()),
-                Time.getTime()
+                CommentModel(
+                    binding.commentArea.text.toString()),
+                    Time.getTime()
             )
 
         Toast.makeText(this, "댓글 입력 완료", Toast.LENGTH_SHORT).show()
