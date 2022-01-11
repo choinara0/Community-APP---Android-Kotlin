@@ -28,10 +28,8 @@ class BoardListLVAdapter(val boardList : MutableList<BoardModel>) : BaseAdapter(
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
         var view = convertView
-        if (view == null){
-            view = LayoutInflater.from(parent?.context).inflate(R.layout.board_list_item, parent, false)
+        view = LayoutInflater.from(parent?.context).inflate(R.layout.board_list_item, parent, false)
 
-        }
 
         val title = view?.findViewById<TextView>(R.id.titleArea)
         title!!.text = boardList[position].title
