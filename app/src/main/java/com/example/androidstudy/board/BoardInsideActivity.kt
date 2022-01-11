@@ -122,6 +122,8 @@ class BoardInsideActivity : AppCompatActivity() {
             if(task.isSuccessful){
                 Glide.with(this)
                     .load(task.result).into(imageViewFromFB)
+            } else {
+                binding.getImageArea.isVisible = false
             }
         })
     }
