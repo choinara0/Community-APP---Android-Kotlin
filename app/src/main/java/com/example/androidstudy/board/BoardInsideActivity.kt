@@ -12,6 +12,7 @@ import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.example.androidstudy.R
+import com.example.androidstudy.comment.CommentLVAdapter
 import com.example.androidstudy.comment.CommentModel
 import com.example.androidstudy.databinding.ActivityBoardInsideBinding
 import com.example.androidstudy.utils.FBAuth
@@ -33,10 +34,15 @@ class BoardInsideActivity : AppCompatActivity() {
 
     private lateinit var  key : String
 
+    private var commentDataList = mutableListOf<CommentModel>()
+
+    private lateinit var commentAdapter : CommentLVAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_board_inside)
+
 
         binding.boardSettingIcon.setOnClickListener {
             showDialog()
@@ -59,6 +65,11 @@ class BoardInsideActivity : AppCompatActivity() {
         binding.commentBtn.setOnClickListener {
             insertComment(key)
         }
+
+        getCommentData(key)
+
+        commentAdapter = CommentLVAdapter(commentDataList)
+        binding.commentLV.adapter = commentAdapter
 
     }
 
@@ -139,11 +150,35 @@ class BoardInsideActivity : AppCompatActivity() {
             .push()
             .setValue(
                 CommentModel(
-                    binding.commentArea.text.toString()),
+                    binding.commentArea.text.toString(),
                     Time.getTime()
+                )
             )
 
         Toast.makeText(this, "댓글 입력 완료", Toast.LENGTH_SHORT).show()
         binding.commentArea.setText("")
+    }
+
+    private fun getCommentData(key : String){
+        val postListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                commentDataList.clear()
+
+                for (dataModel in dataSnapshot.children){
+                    val item = dataModel.getValue(CommentModel::class.java)
+                    commentDataList.add(item!!)
+                }
+
+                commentAdapter.notifyDataSetChanged()
+
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException())
+            }
+        }
+        FBRef.commentRef.child(key).addValueEventListener(postListener)
     }
 }

@@ -50,6 +50,7 @@
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -87,8 +88,7 @@
                 <ListView
                     android:id="@+id/commentLV"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:background="#999999" />
+                    android:layout_height="60dp" />
 
             </LinearLayout>
         </ScrollView>
