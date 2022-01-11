@@ -16,6 +16,7 @@ import com.example.androidstudy.comment.CommentModel
 import com.example.androidstudy.databinding.ActivityBoardInsideBinding
 import com.example.androidstudy.utils.FBAuth
 import com.example.androidstudy.utils.FBRef
+import com.example.androidstudy.utils.Time
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -136,7 +137,10 @@ class BoardInsideActivity : AppCompatActivity() {
         FBRef.commentRef
             .child(key)
             .push()
-            .setValue(CommentModel(binding.commentArea.text.toString()))
+            .setValue(
+                CommentModel(binding.commentArea.text.toString()),
+                Time.getTime()
+            )
 
         Toast.makeText(this, "댓글 입력 완료", Toast.LENGTH_SHORT).show()
         binding.commentArea.setText("")
