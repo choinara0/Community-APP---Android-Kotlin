@@ -1,12 +1,15 @@
 package com.example.androidstudy.board
 
+import android.graphics.Color
 import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.androidstudy.R
+import com.example.androidstudy.utils.FBAuth
 
 class BoardListLVAdapter(val boardList : MutableList<BoardModel>) : BaseAdapter() {
 
@@ -38,6 +41,11 @@ class BoardListLVAdapter(val boardList : MutableList<BoardModel>) : BaseAdapter(
 
         val time = view?.findViewById<TextView>(R.id.timeArea)
         time!!.text = boardList[position].time
+
+        val itemLinearLayoutView = view?.findViewById<LinearLayout>(R.id.itemVeiw)
+        if (boardList[position].uid.equals(FBAuth.getUid())){
+            itemLinearLayoutView?.setBackgroundColor(Color.parseColor("#ffa500"))
+        }
 
         return view!!
 
