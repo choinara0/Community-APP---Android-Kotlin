@@ -26,11 +26,5 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-//        findViewById<Button>(R.id.logoutBtn).setOnClickListener {
-//            auth.signOut()
-//            val intent = Intent(this, IntroActivity::class.java)
-//            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//            startActivity(intent)
-//        }
     }
 }
