@@ -1,4 +1,5 @@
 package com.example.androidstudy.comment
 
-class CommentModel {
-}
+data class CommentModel(
+    val commentTitle : String = ""
+)
