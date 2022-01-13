@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
 import com.example.androidstudy.R
 
 class StoreFragment : Fragment() {
@@ -18,7 +19,13 @@ class StoreFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_store, container, false)
+
+        val view = inflater.inflate(R.layout.fragment_store, container, false)
+
+        val webView : WebView = view.findViewById(R.id.storeWebView)
+        webView.loadUrl("https://ohou.se/")
+
+        return view
     }
 
 }
